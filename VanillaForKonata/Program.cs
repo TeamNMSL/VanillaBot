@@ -53,6 +53,8 @@ namespace VanillaForKonata
 
                     // Handle  messages
                     _bot.OnGroupMessage += _bot_OnGroupMessage;
+                    _bot.OnGroupInvite += _bot_OnGroupInvite;
+                    _bot.OnFriendRequest += _bot_OnFriendRequest;
 
                 }
 
@@ -79,6 +81,42 @@ namespace VanillaForKonata
 
                 Console .WriteLine(e.ToString());
             }
+        }
+
+        private static void _bot_OnFriendRequest(Bot sender, FriendRequestEvent args)
+        {
+            Task.Run(() => {
+                foreach (var item in GlobalScope.Cfgs.BotAdmins)
+                {
+                    sender.SendFriendMessage((uint)item,
+                        new Konata.Core.Message.MessageBuilder()
+                        .Text(
+                            $"被申请好友了\n" +
+                            $"申请人:{args.ReqNick}({args.ReqUin})\n" +
+                            $"Token:{args.Token}"
+                            ));
+                }
+                sender.ApproveFriendRequest(args.ReqUin,args.Token);
+            });
+        }
+
+        private static void _bot_OnGroupInvite(Bot sender, GroupInviteEvent args)
+        {
+            Task.Run(() => {
+                foreach (var item in GlobalScope.Cfgs.BotAdmins)
+                {
+                    sender.SendFriendMessage((uint)item,
+                        new Konata.Core.Message.MessageBuilder()
+                        .Text(
+                            $"被拉群了\n" +
+                            $"邀请人:{args.InviterNick}({args.InviterUin})\n" +
+                            $"目标群:{args.GroupName}({args.GroupUin})\n" +
+                            $"管理员状态:{args.InviterIsAdmin}\n" +
+                            $"Token:{args.Token}"
+                            ));
+                }
+                sender.ApproveGroupInvitation(args.GroupUin,args.InviterUin,args.Token);
+            });
         }
 
         private static void _bot_OnGroupMessage(object? sender, GroupMessageEvent e)
