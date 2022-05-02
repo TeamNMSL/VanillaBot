@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<style>
+    p{
+        text-shadow: 0.1px 0.1px 0.1px black;
+        font-family: "consolas";
+    }
+    .Player{
+        color: aliceblue;
+        position: absolute;
+        z-index: 2;
+        font-size: 13px;
+        z-index: 2;
+        left: 200px;
+        top: 93px;
+    }
+    .Detail{
+        color: aliceblue;
+        position: absolute;
+        z-index: 2;
+        font-size: 15px;
+        z-index: 2;
+        left: 20px;
+        top: 120px;
+    }
+    .SongName{
+        font-size: 20px;
+        position: absolute;
+        z-index: 2;
+        left: 13px;
+        top: 65px;
+        color: aliceblue;
+        width:300px; overflow:hidden; 
+        white-space:nowrap; 
+        text-overflow:ellipsis;
+    }
+    .Score{
+        color: aliceblue;
+        position: absolute;
+        z-index: 2;
+        font-size: 20px;
+        z-index: 2;
+        left: 18px;
+        top: 85px;
+    }
+    .content{
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 320px;
+        height: 180px;
+        overflow: hidden;
+
+    }
+    img{
+
+        filter: blur(3px);
+        left: 0px;
+        top: 0px;
+        height: 320px;
+        width: 320px;
+        object-fit: cover;
+        position: relative;
+    }
+    .mask{
+        
+        opacity: 1;
+        position: absolute;
+        z-index: 1;
+        left:0px;
+        top: 0px;
+        width: 360px;
+        height: 250px;
+
+    }
+</style>
+<body>
+    <div class="content">
+        <img src="https://wiki.arcaea.cn/images/4/4e/Songs_pragmatism_byd.jpg">
+        <div class="Score">
+            <p>10001502[EX+]</p>
+        </div>
+        <div class="Detail">
+            <p>P:1502(+1502)&nbsp;F:0&nbsp;L:0<br>SongRating:11.0&nbsp;PlayRating:13.0</p>
+        </div>
+        <div class="Player">
+            <p>KougeiBot(11.45)<br>029143294</p>
+        </div>
+        <div class="SongName">
+            <p>PRAGMATISM&nbsp;-RESURRECTION-</p>
+        </div>
+        <div class="mask" style="background: linear-gradient(rgba(0,0,0,0) ,rgba(146,13,13,1) 90%);"/>
+    </div>
+</body>
