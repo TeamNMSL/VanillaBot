@@ -20,7 +20,9 @@ namespace VanillaForKonata.BotFunction.Games
         static Dictionary<string, int> SongNameIndex=new();
         static Dictionary<string, int> SongAsciiIndex = new();
         static List<JObject> Songlist=new List<JObject>();
-        public static MessageBuilder SendSound(GroupMessageEvent originEventArgs, string commandString, Konata.Core.Bot bot) {
+        
+        public static MessageBuilder SendSound(GroupMessageEvent originEventArgs, string commandString, Konata.Core.Bot bot)
+        {
             commandString = commandString.Replace("/v sdvx song ", "");
             string[] cmds = commandString.Split(' ', 2);
             JObject songInfo = null;
@@ -74,7 +76,7 @@ namespace VanillaForKonata.BotFunction.Games
             Dictionary<string, string> res = getSongDetail(songInfo);
             string fn = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss-fffff");
             string spath = res["FullSong"];
-            
+
             if (File.Exists(spath))
             {
                 //preSoundAMR(spath,fn);
@@ -95,26 +97,25 @@ namespace VanillaForKonata.BotFunction.Games
 
                         return new MessageBuilder().Text($"炸了别听了");
                     }
-                    
+
                 }
-               
+
             }
             else
             {
                 return new MessageBuilder().Text($"出错了，找不到文件，请窒息");
             }
-            
+
         }
-        public static MessageBuilder? Main(GroupMessageEvent originEventArgs, string commandString, Konata.Core.Bot bot)
-        {
-            commandString = commandString.Replace("/v sdvx info ","");
-            string[] cmds=commandString.Split(' ',2);
+        public static MessageBuilder? Main(GroupMessageEvent originEventArgs, string commandString, Konata.Core.Bot bot) {
+            commandString = commandString.Replace("/v sdvx info ", "");
+            string[] cmds = commandString.Split(' ', 2);
             JObject songInfo = null;
-            if (cmds.Length<2)
+            if (cmds.Length < 2)
             {
                 return null;
             }
-            if (cmds[1]==null)
+            if (cmds[1] == null)
             {
                 return null;
             }
@@ -128,7 +129,9 @@ namespace VanillaForKonata.BotFunction.Games
                 {
                     return new MessageBuilder().Text("没这歌");
                 }
-            } else if (cmds[0] == "id") {
+            }
+            else if (cmds[0] == "id")
+            {
                 if (SongIdIndex.ContainsKey(cmds[1]))
                 {
                     songInfo = Songlist[SongIdIndex[cmds[1]]];
@@ -151,7 +154,8 @@ namespace VanillaForKonata.BotFunction.Games
                 }
 
             }
-            else if (cmds[0] =="json") {
+            else if (cmds[0] == "json")
+            {
                 if (SongIdIndex.ContainsKey(cmds[1]))
                 {
                     songInfo = Songlist[SongIdIndex[cmds[1]]];
@@ -166,7 +170,7 @@ namespace VanillaForKonata.BotFunction.Games
             {
                 return null;
             }
-            Dictionary<string,string> res = getSongDetail(songInfo);
+            Dictionary<string, string> res = getSongDetail(songInfo);
             string fn = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss-fffff");
             string spath = res["SongFile"];
             string cpath = res["CoverPath"];
@@ -174,7 +178,7 @@ namespace VanillaForKonata.BotFunction.Games
             if (File.Exists(spath))
             {
                 //preSoundAMR(spath,fn);
-                preSoundSilk(spath,fn);
+                preSoundSilk(spath, fn);
                 bot.SendGroupMessage(originEventArgs.GroupUin, new MessageBuilder().Record($"{GlobalScope.Path.temp}\\{fn}-s.mp3"));
             }
             var mb = new MessageBuilder().Text(res["songInfo"]);
@@ -187,10 +191,11 @@ namespace VanillaForKonata.BotFunction.Games
                     mb.Image($"{GlobalScope.Path.temp}\\{fn}-{index}-c.png");
                 }
             }
-            
+
 
             return mb;
-        }
+        } 
+        
 
         private static void preSoundSilk(string spath, string fn)
         {

@@ -26,14 +26,21 @@ namespace VanillaForKonata
                     return;
                 if (e.Message == null)
                     return;
-                MessageBuilder Reply = null;
+                (bool,MessageBuilder) Reply;
+                Reply.Item1 = false;
+                Reply.Item2 = null;
+
+                if (BotFunction.Sys.AntiAbuse.IsAbused(e.MemberUin))
+                    return;
+                
+
                 string ImmersionStatus = BotInternal.ImmersionMode.ReadImmersion(e.MemberUin,"group");
                 string commandString = e.Message.Chain.ToString();
                 if (commandString=="/v clear immersion")
                 {
                     ImmersionStatus = "null";
                     BotInternal.ImmersionMode.WriteImmersion(e.MemberUin.ToString(),"group","null");
-                    Reply = new MessageBuilder().Text("已清除");
+                    Reply.Item2 = new MessageBuilder().Text("已清除");
                 }
                 if (ImmersionStatus!="null")
                 {
@@ -42,7 +49,7 @@ namespace VanillaForKonata
                         var immsJson=(JObject)JsonConvert.DeserializeObject(ImmersionStatus);
                         if (immsJson["key"].ToString()=="help")
                         {
-                            Reply = BotFunction.Sys.Help.Main(e, ImmersionStatus);
+                            Reply.Item2 = BotFunction.Sys.Help.Main(e, ImmersionStatus);
                         }
                     }
                     catch (Exception)
@@ -55,55 +62,61 @@ namespace VanillaForKonata
                 }
                 else
                 {
+                    
                     commandString = NickCommand(commandString);
                     var textChain = e.Message.Chain.GetChain<TextChain>();
 
                     //Module Sys
                     if (commandString == "/ping")
-                        Reply = BotFunction.Sys.Ping();
+                        Reply.Item2 = BotFunction.Sys.Ping();
                     else if (commandString == "/v restart another")
-                        Reply = BotFunction.Sys.RestartAnotherBot();
+                        Reply.Item2 = BotFunction.Sys.RestartAnotherBot();
                     else if (commandString.StartsWith("/v module "))
-                        Reply = BotFunction.Sys.Switches.SwitchMain(e, bot);
+                        Reply.Item2 = BotFunction.Sys.Switches.SwitchMain(e, bot);
                     else if (commandString == "/v stat")
-                        Reply = BotFunction.Sys.Stat.GetStat();
+                        Reply.Item2 = BotFunction.Sys.Stat.GetStat();
                     else if (commandString == "*test func")
-                        Reply = TempFunc();
+                        Reply.Item2 = TempFunc();
                     //Module SDVX
                     else if (commandString.StartsWith("/v sdvx info ") && CanBeUse.test("sdvx", e))
-                        Reply = BotFunction.Games.SDVX.Main(e, commandString, bot);
+                        Reply = AntiAbuseCounterAdder(BotFunction.Games.SDVX.Main(e, commandString, bot));
                     else if (commandString.StartsWith("/v sdvx song ") && CanBeUse.test("sdvx", e))
-                        Reply = BotFunction.Games.SDVX.SendSound(e, commandString, bot);
+                        Reply = AntiAbuseCounterAdder(BotFunction.Games.SDVX.SendSound(e, commandString, bot));
                     //Module Arcaea
                     else if (commandString == "/v arc update" && CanBeUse.test("arcaea", e))
-                        Reply = BotFunction.Games.Arcaea.AutoUpdate.UpdateArcaea(bot, e);
+                        Reply.Item2 = BotFunction.Games.Arcaea.AutoUpdate.UpdateArcaea(bot, e);
                     else if (commandString.StartsWith("/v arc query") && CanBeUse.test("arcaea", e))
-                        Reply = BotFunction.Games.Arcaea.Controller.generalQueryEntry(commandString, e);
+                        Reply = AntiAbuseCounterAdder(BotFunction.Games.Arcaea.Controller.generalQueryEntry(commandString, e));
                     else if (commandString.StartsWith("/v arc bind ") && CanBeUse.test("arcaea", e))
-                        Reply = BotFunction.Games.Arcaea.Controller.bind(commandString, e);
+                        Reply = AntiAbuseCounterAdder(BotFunction.Games.Arcaea.Controller.bind(commandString, e));
                     else if (commandString == "/v arc best" && CanBeUse.test("arcaea", e))
-                        Reply = BotFunction.Games.Arcaea.Controller.best(commandString, e);
+                        Reply = AntiAbuseCounterAdder(BotFunction.Games.Arcaea.Controller.best(commandString, e));
                     //Module Tool
                     else if (commandString.StartsWith("/v choose ") && CanBeUse.test("选择", e))
-                        Reply = BotFunction.Tools.ChooseForMe.Choose(commandString);
+                        Reply = AntiAbuseCounterAdder(BotFunction.Tools.ChooseForMe.Choose(commandString));
                     else if (commandString.StartsWith("/v dragon encode ") && CanBeUse.test("龙吟", e))
-                        Reply = BotFunction.Tools.DragonEncoding.Encode(commandString);
+                        Reply = AntiAbuseCounterAdder(BotFunction.Tools.DragonEncoding.Encode(commandString));
                     else if (commandString.StartsWith("/v dragon decode ") && CanBeUse.test("龙吟", e))
-                        Reply = BotFunction.Tools.DragonEncoding.Decode(commandString);
+                        Reply = AntiAbuseCounterAdder(BotFunction.Tools.DragonEncoding.Decode(commandString));
                     //Function Of Immersion
                     else if (commandString == "/help")
-                        Reply = BotFunction.Sys.Help.Start(e);
+                        Reply.Item2 = BotFunction.Sys.Help.Start(e);
                     else if (commandString == "龙图来" && CanBeUse.test("龙图", e))
-                        Reply = BotFunction.Pictures.DragonPicture();
+                        Reply = AntiAbuseCounterAdder(BotFunction.Pictures.DragonPicture());
                     //Module Auto
                     else if (Util.Rand.CanIDo(0.05f) && CanBeUse.test("复读", e))
-                        Reply = BotFunction.Sys.Repeat(e.Message.Chain);
+                        Reply.Item2 = BotFunction.Sys.Repeat(e.Message.Chain);
 
 
                    
                 }
-                if (Reply != null)
-                    bot.SendGroupMessage(e.GroupUin, Reply);
+                if (Reply.Item2 != null)
+                    bot.SendGroupMessage(e.GroupUin, Reply.Item2);
+                if (Reply.Item1)
+                {
+                    //CounterAdd
+                    BotFunction.Sys.AntiAbuse.Counter(e,bot);
+                }
                 return;
             }
             catch (Exception ex)
@@ -125,6 +138,17 @@ namespace VanillaForKonata
         {
             commandString = BotFunction.Games.Arcaea.Controller.getNickCommand(commandString);
             return commandString;
+        }
+        private static (bool,MessageBuilder) AntiAbuseCounterAdder(MessageBuilder m) {
+            (bool, MessageBuilder) r;
+            r.Item1 = true;
+            r.Item2 = m;
+            if (m==null)
+            {
+                r.Item1 = false;
+            }
+            return r;
+        
         }
     }
 }

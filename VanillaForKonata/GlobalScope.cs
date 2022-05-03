@@ -106,11 +106,13 @@ namespace VanillaForKonata
         }
         public static class Cfgs
         {
-            public static string BotName = "Vanilla-Zero";
+            public static string BotName = "java.lang.NullPointerException";
             public static List<ulong> BotAdmins = new List<ulong>();
             public static List<string> FunctionList = new List<string>() {
             "复读","龙图","选择","sdvx","arcaea","龙吟"
             };
+            public static int AbuseLimit=15;
+            public static long AbuseClearTime=60000;
         }
         public static class Images {
             static public Image ThemeBackgroundImageVer1_i;
