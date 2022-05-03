@@ -48,5 +48,7 @@ namespace VanillaForKonata.BotFunction.Games.Arcaea
                 client.DefaultRequestHeaders.Add("User-Agent", UA);
             }
         }
+
+        
     }
 }

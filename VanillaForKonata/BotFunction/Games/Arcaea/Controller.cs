@@ -178,5 +178,74 @@ namespace VanillaForKonata.BotFunction.Games.Arcaea
             t.GetInfoAsync().Wait();
             return new Pictures.RecentImage(t.getRecentInfo()).getRecent().Result;
         }
+        public static string getNickCommand(string commandString)
+        {
+            commandString = commandString.ToLower();
+            
+
+            if (commandString == "/a")
+            {
+                return "/v arc query";
+            }
+
+
+            if (commandString == "/b30"
+                || commandString == "/b40"
+                || commandString == "/a b40"
+                || commandString == "/a b30"
+                || commandString == "/arc b40"
+                || commandString == "/arc b30"
+                || commandString == "/ab"
+                || commandString == "/a best")
+            {
+                return "/v arc best";
+            }
+            if (commandString.StartsWith("/a info ")
+                || commandString.StartsWith("/arc info "))
+            {
+                string[] cmd = commandString.Split(' ', 3);
+                if (cmd.Length == 3)
+                {
+                    return $"/v arc query {cmd[2]}";
+                }
+            }
+            if (commandString.StartsWith("/a bind ")
+                || commandString.StartsWith("/arc bind "))
+            {
+                string[] cmd = commandString.Split(' ', 3);
+                if (cmd.Length == 3)
+                {
+                    return $"/v arc bind {cmd[2]}";
+                }
+            }
+
+            if (commandString.StartsWith("/a "))
+            {
+                string[] cmd = commandString.Split(' ', 2);
+                return $"/v arc query {cmd[1]}";
+            }
+
+            if (commandString.StartsWith("/arc"))
+            {
+                string[] cmd = commandString.Split(' ', 2);
+                if (cmd.Length > 1)
+                {
+                    if (cmd[1] == "best")
+                    {
+                        return "/v arc best";
+                    }
+                    else
+                    {
+                        return "/v arc " + cmd[1];
+                    }
+                }
+                else
+                {
+                    return "/v arc query";
+                }
+            }
+
+            return commandString;
+        }
     }
 }

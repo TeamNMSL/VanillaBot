@@ -123,6 +123,7 @@ namespace VanillaForKonata
 
         private static string NickCommand(string commandString)
         {
+            commandString = BotFunction.Games.Arcaea.Controller.getNickCommand(commandString);
             return commandString;
         }
     }
