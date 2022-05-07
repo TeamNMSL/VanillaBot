@@ -178,9 +178,9 @@ namespace VanillaForKonata.BotFunction.Games.Arcaea
             t.GetInfoAsync().Wait();
             return new Pictures.RecentImage(t.getRecentInfo()).getRecent().Result;
         }
-        public static string getNickCommand(string commandString)
+        public static string getNickCommand(string commandStringO)
         {
-            commandString = commandString.ToLower();
+            string commandString = commandStringO.ToLower();
             
 
             if (commandString == "/a")
@@ -245,7 +245,7 @@ namespace VanillaForKonata.BotFunction.Games.Arcaea
                 }
             }
 
-            return commandString;
+            return commandStringO;
         }
     }
 }
