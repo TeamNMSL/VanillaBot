@@ -73,7 +73,7 @@ namespace VanillaForKonata.BotFunction
                 if (cmd=="/help")
                 {
                     var content=HelpReader($"{GlobalScope.Path.Manual}{val}index.json");
-                    return BuildHelpMessage(content["Title"],content["Context"],content["Bottom"]);
+                    return BuildHelpMessage(content["Title"],content["Context"],content["Bottom"]).Text("看完帮助记得输入exit不然bot不会响应任何指令");
                 }
                 else
                 {
