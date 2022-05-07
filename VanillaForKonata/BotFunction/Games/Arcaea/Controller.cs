@@ -236,7 +236,7 @@ namespace VanillaForKonata.BotFunction.Games.Arcaea
                     }
                     else
                     {
-                        return "/v arc " + cmd[1];
+                        return "/v arc query " + cmd[1];
                     }
                 }
                 else
