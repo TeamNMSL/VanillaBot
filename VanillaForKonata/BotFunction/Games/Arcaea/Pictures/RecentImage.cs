@@ -136,7 +136,7 @@ namespace VanillaForKonata.BotFunction.Games.Arcaea.Pictures
             => recent.content.songinfo[0].name_en.Replace(" ","&nbsp;");
         private string buildPlayer()
         {
-            return $"{recent.content.account_info.name}({(float)((int)(recent.content.account_info.rating)) / 100})";
+            return $"{recent.content.account_info.name}({(float)((int)(recent.content.account_info.rating)) / 100})<br>{recent.content.account_info.code}";
         }
 
         private string buildDetail()
