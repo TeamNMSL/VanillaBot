@@ -64,7 +64,7 @@ namespace VanillaForKonata.BotFunction.Games.Arcaea.Models
             /// <summary>
             /// 
             /// </summary>
-            public long rating { get; set; }
+            public double rating { get; set; }
             /// <summary>
             /// 
             /// </summary>

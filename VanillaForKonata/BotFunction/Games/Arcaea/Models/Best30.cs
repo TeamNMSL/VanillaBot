@@ -349,7 +349,7 @@ namespace VanillaForKonata.BotFunction.Games.Arcaea.Models
             /// <summary>
             /// 
             /// </summary>
-            public long recent10_avg { get; set; }
+            public double recent10_avg { get; set; }
             /// <summary>
             /// 
             /// </summary>
