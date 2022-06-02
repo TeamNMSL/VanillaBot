@@ -120,7 +120,7 @@ namespace VanillaForKonata.BotFunction.Games.Arcaea
             string songid = "";
             foreach (var a in args)
             {
-                if (i!=args.Length-1)
+                if (i != args.Length - 1)
                 {
                     songid += a;
                 }
@@ -131,6 +131,7 @@ namespace VanillaForKonata.BotFunction.Games.Arcaea
                         songid += a;
                     }
                 }
+                i+=1;
             }
             var t = new BotFunction.Games.Arcaea.Arcaea.ArcaeaSongBestInfo(
                 Arcaea.ArcaeaSongBestInfo.buildPara(
