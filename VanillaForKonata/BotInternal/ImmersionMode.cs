@@ -53,6 +53,7 @@ namespace VanillaForKonata.BotInternal
                 }
                 else
                 {
+                    
                     return res.Rows[0]["status"].ToString();
                 }
             }
@@ -90,6 +91,32 @@ namespace VanillaForKonata.BotInternal
             {
                 Console.WriteLine(e.ToString());
                 
+            }
+        }
+
+        internal static void AddImmersionTimer(uint memberUin, CancellationTokenSource cts)
+        {
+            if (isImmersionTaskExists(memberUin))
+            {
+               DeleteImmersionTimer(memberUin);
+            }
+            UsersData.ImmersionTimer.Add(memberUin.ToString(), cts);
+        }
+        internal static void DeleteImmersionTimer(uint member) {
+            if (isImmersionTaskExists(member))
+            {
+                UsersData.ImmersionTimer[member.ToString()].Cancel();
+                UsersData.ImmersionTimer.Remove(member.ToString());
+            }
+        }
+        private static bool isImmersionTaskExists(uint uin) {
+            if (UsersData.ImmersionTimer.ContainsKey(uin.ToString()))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
     }

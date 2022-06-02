@@ -53,11 +53,29 @@ namespace VanillaForKonata.BotFunction
                         "val":"\"
                     }
                  */
-                
+                var cts=new CancellationTokenSource();
+                ImmersionMode.AddImmersionTimer(e.MemberUin, cts);
+                var ct = cts.Token;
+                Task.Run(() =>
+                {
+                    Thread.Sleep(10000);
+                    try
+                    {
+                        ct.ThrowIfCancellationRequested();
+                    }
+                    catch (Exception)
+                    {
+                        return;
+                    }
+                    
+                    SetStat(e, "null");
+                    BotInternal.ImmersionMode.WriteImmersion(e.MemberUin.ToString(), "group", "null");
+                },ct); 
                 var cmd = e.Message.Chain.ToString();
                 if (cmd == "exit")
                 {
                     SetStat(e, "null");
+                    ImmersionMode.DeleteImmersionTimer(e.MemberUin);
                     return new MessageBuilder()
                         .Text("已退出帮助模式，Bot会正常响应指令了");
                 }
