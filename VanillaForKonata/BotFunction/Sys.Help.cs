@@ -58,7 +58,7 @@ namespace VanillaForKonata.BotFunction
                 var ct = cts.Token;
                 Task.Run(() =>
                 {
-                    Thread.Sleep(10000);
+                    Thread.Sleep(120000);
                     try
                     {
                         ct.ThrowIfCancellationRequested();
