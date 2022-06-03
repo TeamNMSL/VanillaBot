@@ -89,6 +89,8 @@ namespace VanillaForKonata
                         Reply = AntiAbuseCounterAdder(addAt(bot,e,BotFunction.Games.Arcaea.Controller.generalQueryEntry(commandString, e)));
                     else if (commandString.StartsWith("/v arc bind ") && CanBeUse.test("arcaea", e))
                         Reply = AntiAbuseCounterAdder(addAt(bot,e,BotFunction.Games.Arcaea.Controller.bind(commandString, e)));
+                    else if (commandString.StartsWith("/v arc chart ") && CanBeUse.test("arcaea", e))
+                        Reply = AntiAbuseCounterAdder(addAt(bot, e, BotFunction.Games.Arcaea.Controller.chartPreview(commandString)));
                     else if (commandString == "/v arc best" && CanBeUse.test("arcaea", e))
                         Reply = AntiAbuseCounterAdder(addAt(bot, e, BotFunction.Games.Arcaea.Controller.best(commandString, e)));
                     //Module Tool

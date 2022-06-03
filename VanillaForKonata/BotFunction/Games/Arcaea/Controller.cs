@@ -48,6 +48,7 @@ namespace VanillaForKonata.BotFunction.Games.Arcaea
                 return new MessageBuilder().Text(ex.ToString());
             }
         }
+       
         public static MessageBuilder generalQueryEntry(string cmd, GroupMessageEvent e) {
             try
             {
@@ -150,7 +151,75 @@ namespace VanillaForKonata.BotFunction.Games.Arcaea
             t.GetInfoAsync().Wait();
             return new BotFunction.Games.Arcaea.Pictures.BestImage(t.getSongBestInfo()).getBest().Result;
         }
-
+        public static MessageBuilder chartPreview(string v)
+        {
+            bool includeDiff = false;
+            var args = v.Split(' ',4);// /v arc chart iLLness LiLin Maximum
+            int ii = 0;
+            List<string> arglist = new List<string>();
+            foreach (var item in args)
+            {
+                if (ii>=3)
+                {
+                    arglist.Add(item);
+                }
+                ii += 1;
+            }
+            v=string.Join(" ",arglist);
+            args=v.Split(' ');
+            var diff = new string[] { "pst", "prs", "ftr", "byd", "past", "present", "future", "beyond", "蓝", "绿", "紫", "红" };
+            string diffId = "2";
+            switch (args[args.Length - 1].ToLower())
+            {
+                case "pst":
+                case "past":
+                case "蓝":
+                    diffId = "0";
+                    includeDiff = true;
+                    break;
+                case "present":
+                case "prs":
+                case "绿":
+                    diffId = "1";
+                    includeDiff = true;
+                    break;
+                case "ftr":
+                case "future":
+                case "紫":
+                    diffId = "2";
+                    includeDiff = true;
+                    break;
+                case "byd":
+                case "beyond":
+                case "红":
+                    diffId = "3";
+                    includeDiff = true;
+                    break;
+                default:
+                    break;
+            }
+            int i = 0;
+            string songid = "";
+            foreach (var a in args)
+            {
+                if (i != args.Length - 1)
+                {
+                    songid += a;
+                }
+                else
+                {
+                    if (!includeDiff)
+                    {
+                        songid += a;
+                    }
+                }
+                i += 1;
+            }
+            var t = new BotFunction.Games.Arcaea.API.Arcaea.ArcaeaChartPreview(BotFunction.Games.Arcaea.API.Arcaea.ArcaeaChartPreview.ParaBuilder(songid,diffId));
+            string fn = $"{GlobalScope.Path.temp}\\{DateTime.Now.ToString("yyy-MM-dd-HH-mm-ss-fffffff")}";
+            t.saveStream(fn);
+            return new MessageBuilder().Image(fn);
+        }
         internal static MessageBuilder? best(string commandString, GroupMessageEvent e)
         {
             try
@@ -192,7 +261,7 @@ namespace VanillaForKonata.BotFunction.Games.Arcaea
             string commandString = commandStringO.ToLower();
             
 
-            if (commandString == "/a")
+            if (commandString == "/a"||commandString=="/arc")
             {
                 return "/v arc query";
             }
@@ -218,6 +287,17 @@ namespace VanillaForKonata.BotFunction.Games.Arcaea
                     return $"/v arc query {cmd[2]}";
                 }
             }
+
+            if (commandString.StartsWith("/a chart ")
+                || commandString.StartsWith("/arc chart "))
+            {
+                string[] cmd = commandString.Split(' ', 3);
+                if (cmd.Length == 3)
+                {
+                    return $"/v arc chart {cmd[2]}";
+                }
+            }
+
             if (commandString.StartsWith("/a bind ")
                 || commandString.StartsWith("/arc bind "))
             {
@@ -228,31 +308,6 @@ namespace VanillaForKonata.BotFunction.Games.Arcaea
                 }
             }
 
-            if (commandString.StartsWith("/a "))
-            {
-                string[] cmd = commandString.Split(' ', 2);
-                return $"/v arc query {cmd[1]}";
-            }
-
-            if (commandString.StartsWith("/arc"))
-            {
-                string[] cmd = commandString.Split(' ', 2);
-                if (cmd.Length > 1)
-                {
-                    if (cmd[1] == "best")
-                    {
-                        return "/v arc best";
-                    }
-                    else
-                    {
-                        return "/v arc query " + cmd[1];
-                    }
-                }
-                else
-                {
-                    return "/v arc query";
-                }
-            }
 
             return commandStringO;
         }

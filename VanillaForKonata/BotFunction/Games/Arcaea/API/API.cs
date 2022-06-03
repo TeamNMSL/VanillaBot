@@ -18,8 +18,11 @@ namespace VanillaForKonata.BotFunction.Games.Arcaea
             protected HttpClient client;
             protected static string APIRoutine;
             protected static string UA;
+            public  byte[] getByte()
+                => client.GetByteArrayAsync(APIRoutine).Result;
             public async Task<bool> GetInfoAsync()
             {
+                
                 byte[]? result = await client.GetByteArrayAsync(APIRoutine);
                 
                 try
@@ -46,6 +49,10 @@ namespace VanillaForKonata.BotFunction.Games.Arcaea
                 client = new();
                 client.BaseAddress = new Uri("https://" + GlobalScope.Arc.Api + "/");
                 client.DefaultRequestHeaders.Add("User-Agent", UA);
+            }
+            public Stream GetStream() {
+                return client.GetStreamAsync(client.BaseAddress+APIRoutine).Result;
+            
             }
         }
 
