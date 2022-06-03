@@ -52,24 +52,32 @@ namespace VanillaForKonata.BotFunction.Games.Arcaea
             try
             {
                 var a = new Util.Database($"{GlobalScope.Path.Arcaea}{GlobalScope.Arc.PartPath.bindDB}");
-                var rs = a.Select("ArcBind", $"Uin={e.MemberUin}").Rows;
-                if (rs.Count == 0) {
-                    return new MessageBuilder().Text("在查询之前请绑定您的Arcaea账号");
-                }
-                string arcid = rs[0]["Code"].ToString();
+                
                 // /v arc query iLLness LiLin Maximum
                 string[] args = cmd.Split(' ', 3);// v arc query+xxxxxx
 
                 if (args.Length<3)
                 {
-                    return new MessageBuilder().Text("缺少参数");
+                    return null;
                 }
                 if (args[2].ToLower()=="query")
                 {
+                    var rs = a.Select("ArcBind", $"Uin={e.MemberUin}").Rows;
+                    if (rs.Count == 0)
+                    {
+                        return new MessageBuilder().Text("在查询之前请绑定您的Arcaea账号");
+                    }
+                    string arcid = rs[0]["Code"].ToString();
                     return queryRecent(arcid);
                 }
                 else
                 {
+                    var rs = a.Select("ArcBind", $"Uin={e.MemberUin}").Rows;
+                    if (rs.Count == 0)
+                    {
+                        return new MessageBuilder().Text("在查询之前请绑定您的Arcaea账号");
+                    }
+                    string arcid = rs[0]["Code"].ToString();
                     var infoArg=args[2].Split(' ', 2);
                     return queryBest(arcid,infoArg[1]);
                 }

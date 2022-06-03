@@ -32,8 +32,8 @@ namespace VanillaForKonata
 
                 if (BotFunction.Sys.AntiAbuse.IsAbused(e.MemberUin))
                     return;
-                
 
+                
                 string ImmersionStatus = BotInternal.ImmersionMode.ReadImmersion(e.MemberUin,"group");
                 string commandString = e.Message.Chain.ToString();
                 if (commandString=="/v clear immersion")
@@ -86,11 +86,11 @@ namespace VanillaForKonata
                     else if (commandString == "/v arc update" && CanBeUse.test("arcaea", e))
                         Reply.Item2 = BotFunction.Games.Arcaea.AutoUpdate.UpdateArcaea(bot, e);
                     else if (commandString.StartsWith("/v arc query") && CanBeUse.test("arcaea", e))
-                        Reply = AntiAbuseCounterAdder(BotFunction.Games.Arcaea.Controller.generalQueryEntry(commandString, e));
+                        Reply = AntiAbuseCounterAdder(addAt(bot,e,BotFunction.Games.Arcaea.Controller.generalQueryEntry(commandString, e)));
                     else if (commandString.StartsWith("/v arc bind ") && CanBeUse.test("arcaea", e))
-                        Reply = AntiAbuseCounterAdder(BotFunction.Games.Arcaea.Controller.bind(commandString, e));
+                        Reply = AntiAbuseCounterAdder(addAt(bot,e,BotFunction.Games.Arcaea.Controller.bind(commandString, e)));
                     else if (commandString == "/v arc best" && CanBeUse.test("arcaea", e))
-                        Reply = AntiAbuseCounterAdder(BotFunction.Games.Arcaea.Controller.best(commandString, e));
+                        Reply = AntiAbuseCounterAdder(addAt(bot, e, BotFunction.Games.Arcaea.Controller.best(commandString, e)));
                     //Module Tool
                     else if (commandString.StartsWith("/v choose ") && CanBeUse.test("选择", e))
                         Reply = AntiAbuseCounterAdder(BotFunction.Tools.ChooseForMe.Choose(commandString));
@@ -150,5 +150,7 @@ namespace VanillaForKonata
             return r;
         
         }
+        private static MessageBuilder addAt(Bot bot, GroupMessageEvent e, MessageBuilder p) 
+            => new MessageBuilder().At(e.MemberUin) + p;
     }
 }
