@@ -86,9 +86,9 @@ namespace VanillaForKonata
                     else if (commandString == "/v arc update" && CanBeUse.test("arcaea", e))
                         Reply.Item2 = BotFunction.Games.Arcaea.AutoUpdate.UpdateArcaea(bot, e);
                     else if (commandString.StartsWith("/v arc query") && CanBeUse.test("arcaea", e))
-                        Reply = AntiAbuseCounterAdder(addAt(bot,e,BotFunction.Games.Arcaea.Controller.generalQueryEntry(commandString, e)));
+                        Reply = AntiAbuseCounterAdder(addAt(bot, e, BotFunction.Games.Arcaea.Controller.generalQueryEntry(commandString, e)));
                     else if (commandString.StartsWith("/v arc bind ") && CanBeUse.test("arcaea", e))
-                        Reply = AntiAbuseCounterAdder(addAt(bot,e,BotFunction.Games.Arcaea.Controller.bind(commandString, e)));
+                        Reply = AntiAbuseCounterAdder(addAt(bot, e, BotFunction.Games.Arcaea.Controller.bind(commandString, e)));
                     else if (commandString.StartsWith("/v arc chart ") && CanBeUse.test("arcaea", e))
                         Reply = AntiAbuseCounterAdder(addAt(bot, e, BotFunction.Games.Arcaea.Controller.chartPreview(commandString)));
                     else if (commandString == "/v arc best" && CanBeUse.test("arcaea", e))
@@ -100,6 +100,9 @@ namespace VanillaForKonata
                         Reply = AntiAbuseCounterAdder(BotFunction.Tools.DragonEncoding.Encode(commandString));
                     else if (commandString.StartsWith("/v dragon decode ") && CanBeUse.test("龙吟", e))
                         Reply = AntiAbuseCounterAdder(BotFunction.Tools.DragonEncoding.Decode(commandString));
+                    //Module Bottle
+                    else if (commandString.StartsWith("/v bottle ") && CanBeUse.test("bottle",e))
+                        Reply = AntiAbuseCounterAdder(BotFunction.Tools.Bottle.bottleController.main(commandString,e));
                     //Function Of Immersion
                     else if (commandString == "/help")
                         Reply.Item2 = BotFunction.Sys.Help.Start(e);
@@ -139,6 +142,7 @@ namespace VanillaForKonata
         private static string NickCommand(string commandString)
         {
             commandString = BotFunction.Games.Arcaea.Controller.getNickCommand(commandString);
+            commandString = BotFunction.Tools.Bottle.bottleController.getNick(commandString);
             return commandString;
         }
         private static (bool,MessageBuilder) AntiAbuseCounterAdder(MessageBuilder m) {

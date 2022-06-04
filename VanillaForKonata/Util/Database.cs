@@ -74,12 +74,20 @@ namespace VanillaForKonata.Util
                 Value.Add($"@{item.Key}");
             }
             string cmd= $"INSERT INTO {TableName} ({string.Join(",", (Key.ToArray()))})  VALUES({string.Join(",", (Value.ToArray()))})";
+            Console.WriteLine(cmd);
             setcmd(cmd);
             return execute();
         }
         public DataTable Select(string TableName,string Conditions) {
             
             string cmd = $"SELECT * from {TableName} WHERE {Conditions}";
+            setcmd(cmd);
+            return execute();
+        }
+        public DataTable Select(string TableName)
+        {
+
+            string cmd = $"SELECT * from {TableName}";
             setcmd(cmd);
             return execute();
         }
