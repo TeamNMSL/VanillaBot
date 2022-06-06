@@ -102,6 +102,8 @@ namespace VanillaForKonata
                         Reply = AntiAbuseCounterAdder(BotFunction.Tools.DragonEncoding.Encode(commandString));
                     else if (commandString.StartsWith("/v dragon decode ") && CanBeUse.test("龙吟", e))
                         Reply = AntiAbuseCounterAdder(BotFunction.Tools.DragonEncoding.Decode(commandString));
+                    else if (commandString=="/v openbox rand" && CanBeUse.test("openbox", e))
+                        Reply = BotFunction.Tools.box.QQBox.randBox(e,bot);
                     else if (commandString.StartsWith("/v openbox ") && CanBeUse.test("openbox", e))
                         Reply = AntiAbuseCounterAdder(BotFunction.Tools.box.QQBox.main(commandString));
                     //Module Bottle
