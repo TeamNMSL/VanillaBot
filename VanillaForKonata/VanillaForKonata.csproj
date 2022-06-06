@@ -11,6 +11,7 @@
     <Company>DragonEducation</Company>
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>

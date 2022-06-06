@@ -72,6 +72,10 @@ namespace VanillaForKonata
                 Directory.CreateDirectory(Path.Arcaea);
             Arc.Init();
             BotFunction.Tools.Bottle.bottleController.initBox();
+            Path.configs = $"{Path.AppPath}\\configs";
+            if (!Directory.Exists(Path.configs))
+                Directory.CreateDirectory(Path.configs);
+            BotFunction.Tools.box.QQBox.init();
         }
         public static class Arc {
             public static string Api;
@@ -104,13 +108,14 @@ namespace VanillaForKonata
             public static string Bin;
             public static string Manual;
             public static string Arcaea;
+            public static string configs;
         }
         public static class Cfgs
         {
             public static string BotName = "java.lang.NullPointerException";
             public static List<ulong> BotAdmins = new List<ulong>();
             public static List<string> FunctionList = new List<string>() {
-            "复读","龙图","选择","sdvx","arcaea","龙吟","bottle"
+            "复读","龙图","选择","sdvx","arcaea","龙吟","bottle","openbox"
             };
             public static int AbuseLimit=15;
             public static long AbuseClearTime=60000;
