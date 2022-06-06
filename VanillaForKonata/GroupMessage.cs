@@ -82,6 +82,8 @@ namespace VanillaForKonata
                         Reply = AntiAbuseCounterAdder(BotFunction.Games.SDVX.Main(e, commandString, bot));
                     else if (commandString.StartsWith("/v sdvx song ") && CanBeUse.test("sdvx", e))
                         Reply = AntiAbuseCounterAdder(BotFunction.Games.SDVX.SendSound(e, commandString, bot));
+                    else if (commandString=="/v sdvx rand" && CanBeUse.test("sdvx", e))
+                        Reply = AntiAbuseCounterAdder(BotFunction.Games.SDVX.randSong(bot,e));
                     //Module Arcaea
                     else if (commandString == "/v arc update" && CanBeUse.test("arcaea", e))
                         Reply.Item2 = BotFunction.Games.Arcaea.AutoUpdate.UpdateArcaea(bot, e);

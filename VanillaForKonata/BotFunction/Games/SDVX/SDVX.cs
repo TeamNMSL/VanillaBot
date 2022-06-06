@@ -20,7 +20,59 @@ namespace VanillaForKonata.BotFunction.Games
         static Dictionary<string, int> SongNameIndex=new();
         static Dictionary<string, int> SongAsciiIndex = new();
         static List<JObject> Songlist=new List<JObject>();
-        
+
+
+        public static MessageBuilder randSong(Konata.Core.Bot bot, GroupMessageEvent e) { 
+            int v0=Songlist.Count;
+            int v1 = Util.Rand.GetRandomNumber(0, v0 - 1);
+            var v2 = getSongDetail(Songlist[v1]);
+            string v3 = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss-fffff");
+            string v4 = v2["FullSong"];
+            string cpath = v2["CoverPath"];
+            Console.WriteLine(cpath);
+            var v5 = new MessageBuilder().Text(v2["songInfo"]);
+            int index = 0;
+            foreach (var item in cpath.Split("\n"))
+            {
+                if (File.Exists(item))
+                {
+                    File.Copy(item, $"{GlobalScope.Path.temp}\\{v3}-{index}-c.png", true);
+                    v5.Image($"{GlobalScope.Path.temp}\\{v3}-{index}-c.png");
+                    
+                }
+            }
+            bot.SendGroupMessage(e.GroupUin, v5);
+
+            if (File.Exists(v4))
+            {
+                //preSoundAMR(spath,fn);
+                preSoundSilk(v4, v3);
+                try
+                {
+                    return new MessageBuilder().Record($"{GlobalScope.Path.temp}\\{v3}-s.mp3");
+                }
+                catch (Exception)
+                {
+                    try
+                    {
+                        preSoundAMR(v4, v3);
+                        return new MessageBuilder().Record($"{GlobalScope.Path.temp}\\{v3}-s.amr");
+                    }
+                    catch (Exception)
+                    {
+
+                        return new MessageBuilder().Text($"炸了别听了");
+                    }
+
+                }
+
+            }
+            else
+            {
+                return new MessageBuilder().Text($"出错了，找不到文件，请窒息");
+            }
+        }
+
         public static MessageBuilder SendSound(GroupMessageEvent originEventArgs, string commandString, Konata.Core.Bot bot)
         {
             commandString = commandString.Replace("/v sdvx song ", "");
