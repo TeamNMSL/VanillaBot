@@ -22,26 +22,27 @@ namespace VanillaForKonata.BotFunction.Games
         static List<JObject> Songlist=new List<JObject>();
 
 
-        public static MessageBuilder randSong(Konata.Core.Bot bot, GroupMessageEvent e) { 
+        public static MessageBuilder randSong(Konata.Core.Bot p1, GroupMessageEvent p2) { 
             int v0=Songlist.Count;
             int v1 = Util.Rand.GetRandomNumber(0, v0 - 1);
             var v2 = getSongDetail(Songlist[v1]);
             string v3 = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss-fffff");
             string v4 = v2["FullSong"];
-            string cpath = v2["CoverPath"];
-            Console.WriteLine(cpath);
             var v5 = new MessageBuilder().Text(v2["songInfo"]);
-            int index = 0;
-            foreach (var item in cpath.Split("\n"))
+            string v6 = v2["CoverPath"];
+            Console.WriteLine(v6);
+            
+            int v7 = 0;
+            foreach (var item in v6.Split("\n"))
             {
                 if (File.Exists(item))
                 {
-                    File.Copy(item, $"{GlobalScope.Path.temp}\\{v3}-{index}-c.png", true);
-                    v5.Image($"{GlobalScope.Path.temp}\\{v3}-{index}-c.png");
+                    File.Copy(item, $"{GlobalScope.Path.temp}\\{v3}-{v7}-c.png", true);
+                    v5.Image($"{GlobalScope.Path.temp}\\{v3}-{v7}-c.png");
                     
                 }
             }
-            bot.SendGroupMessage(e.GroupUin, v5);
+            p1.SendGroupMessage(p2.GroupUin, v5);
 
             if (File.Exists(v4))
             {
