@@ -45,7 +45,7 @@ namespace VanillaForKonata.BotFunction.Games.Arcaea
             catch (Exception ex )
             {
 
-                return new MessageBuilder().Text(ex.ToString());
+                return new MessageBuilder().Text(ex.Message);
             }
         }
        
@@ -86,7 +86,7 @@ namespace VanillaForKonata.BotFunction.Games.Arcaea
             catch (Exception ex)
             {
 
-                return new MessageBuilder().Text(ex.ToString());
+                return new MessageBuilder().Text(ex.Message);
             }
         }
 
@@ -242,7 +242,7 @@ namespace VanillaForKonata.BotFunction.Games.Arcaea
             catch (Exception ex)
             {
 
-                return new MessageBuilder().Text(ex.ToString());
+                return new MessageBuilder().Text(ex.Message);
             }
         }
 

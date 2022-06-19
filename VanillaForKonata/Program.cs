@@ -120,11 +120,11 @@ namespace VanillaForKonata
                 if (args.InviterIsAdmin)
                 {
                     Thread.Sleep(5000);
-                    sender.SendGroupMessage(args.GroupUin, new Konata.Core.Message.MessageBuilder().Text("Bot已被拉入本群，使用方法请发送/help或到该页面查看帮助http://blog.nijikuu.com/BotHelp/"));
+                    sender.SendGroupMessage(args.GroupUin, new Konata.Core.Message.MessageBuilder().Text("Bot已被拉入本群，bot出现什么问题直接禁言或者烟掉是没妈行为，正确的处理方法和使用方法请发送/help或到该页面查看帮助http://blog.nijikuu.com/BotHelp/，常见问题的解决方案在网页内"));
                 }
                 else
                 {
-                    sender.SendFriendMessage(args.InviterUin, new Konata.Core.Message.MessageBuilder().Text("已同意群邀请，请在bot入群后告知群友bot使用方法，可以在群内使用/help查看帮助,亦可进入以下页面查看帮助http://blog.nijikuu.com/BotHelp/"));
+                    sender.SendFriendMessage(args.InviterUin, new Konata.Core.Message.MessageBuilder().Text("已同意群邀请，请在bot入群后告知群友bot使用方法并告诉他们bot出现问题直接烟掉或者飞是没妈行为，出现问题或者不会用可以在群内使用/help查看帮助,亦可进入以下页面查看帮助http://blog.nijikuu.com/BotHelp/，常见问题的解决方案可以在网页内查询到"));
                 }
             });
         }
