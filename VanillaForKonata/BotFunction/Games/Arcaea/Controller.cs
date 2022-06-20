@@ -259,7 +259,11 @@ namespace VanillaForKonata.BotFunction.Games.Arcaea
         public static string getNickCommand(string commandStringO)
         {
             string commandString = commandStringO.ToLower();
-            
+
+            if (commandString=="/v arc update")
+            {
+                return commandString;
+            }
 
             if (commandString == "/a"||commandString=="/arc")
             {
