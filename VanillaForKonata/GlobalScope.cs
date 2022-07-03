@@ -114,8 +114,15 @@ namespace VanillaForKonata
         {
             public static string BotName = "java.lang.NullPointerException";
             public static List<ulong> BotAdmins = new List<ulong>();
-            public static List<string> FunctionList = new List<string>() {
-            "复读","龙图","选择","sdvx","arcaea","龙吟","bottle","openbox"
+            public static Dictionary<string, string> FunctionList = new Dictionary<string,string>() {
+                { "复读","on" },
+                {"龙图" ,"on"},
+                { "选择","on" },
+                { "sdvx" ,"on"},
+                { "arcaea","on" },
+                { "龙吟" ,"on"},
+                { "bottle","on" },
+                { "openbox" ,"loff"}
             };
             public static int AbuseLimit=15;
             public static long AbuseClearTime=60000;

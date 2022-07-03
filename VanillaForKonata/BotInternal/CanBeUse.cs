@@ -15,26 +15,7 @@ namespace VanillaForKonata.BotInternal
         
         public static bool test(string functionname, GroupMessageEvent e)
         {
-            if (!UsersData.Switches.ContainsKey(e.GroupUin.ToString()))
-            {
-                var Switches = ReadSwitches(e.GroupUin, "Group");
-                UsersData.Switches.Add(e.GroupUin.ToString(), Switches);
-                
-                return test(functionname,e);
-            }
-            if (!UsersData.Switches[e.GroupUin.ToString()].ContainsKey(functionname))
-            {
-                UsersData.Switches[e.GroupUin.ToString()].Add(functionname, "on");
-                return true;
-            }
-            if (UsersData.Switches[e.GroupUin.ToString()][functionname]=="on"|| UsersData.Switches[e.GroupUin.ToString()][functionname] == "lon")
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return test(functionname, e.GroupUin);
         }
         public static bool SaveSwitchStatus(Dictionary<string,string> switches,ulong uin,string type) {
             try
@@ -42,9 +23,9 @@ namespace VanillaForKonata.BotInternal
                 var functionlist = GlobalScope.Cfgs.FunctionList;
                 foreach (var function in functionlist)
                 {
-                    if (!switches.ContainsKey(function))
+                    if (!switches.ContainsKey(function.Key))
                     {
-                        switches.Add(function, "on");
+                        switches.Add(function.Key, function.Value);
                     }
                 }
                 Util.Database database = new Database($"{GlobalScope.Path.DatabasePath}\\Switches");
@@ -79,7 +60,7 @@ namespace VanillaForKonata.BotInternal
                 Dictionary<string, string> switches = new ();
                 foreach (var function in functionlist)
                 {
-                    switches.Add(function,"on");
+                    switches.Add(function.Key,function.Value);
                 }
                 SaveSwitchStatus(switches, uin, type);
                 return switches;
@@ -96,6 +77,30 @@ namespace VanillaForKonata.BotInternal
             Util.Database database = new Database($"{GlobalScope.Path.DatabasePath}\\Switches");
             database.Create("Switches","Uin","Type","Data");
 
+        }
+
+        internal static bool test(string functionname, uint GroupUin)
+        {
+            if (!UsersData.Switches.ContainsKey(GroupUin.ToString()))
+            {
+                var Switches = ReadSwitches(GroupUin, "Group");
+                UsersData.Switches.Add(GroupUin.ToString(), Switches);
+
+                return test(functionname, GroupUin);
+            }
+            if (!UsersData.Switches[GroupUin.ToString()].ContainsKey(functionname))
+            {
+                UsersData.Switches[GroupUin.ToString()].Add(functionname, GlobalScope.Cfgs.FunctionList[functionname]);
+                return true;
+            }
+            if (UsersData.Switches[GroupUin.ToString()][functionname] == "on" || UsersData.Switches[GroupUin.ToString()][functionname] == "lon")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
