@@ -35,7 +35,8 @@ namespace VanillaForKonata.BotFunction.Tools
                 int songcount=Games.SDVX.SongIdIndex.Count;
                 int index = Util.Rand.GetRandomNumber(seed,0, songcount - 1);
 
-                h.setValue("Songcover", Util.PicHTMLBuilder.pathConverter(Games.SDVX.getSongDetail(Games.SDVX.Songlist[index])["CoverPath"]).Split("\n")[0]);
+            var aa= (Games.SDVX.getSongDetail(Games.SDVX.Songlist[index])["CoverPath"]).Split("\n");
+                h.setValue("Songcover", Util.PicHTMLBuilder.pathConverter(aa[aa.Length-1]));
                 h.setValue("Songname", Games.SDVX.Songlist[index]["info"]["title_name"].ToString());
             //SDVX end
 
