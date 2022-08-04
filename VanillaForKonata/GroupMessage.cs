@@ -106,6 +106,8 @@ namespace VanillaForKonata
                         Reply = BotFunction.Tools.box.QQBox.randBox(e,bot);
                     else if (commandString.StartsWith("/v openbox ") && CanBeUse.test("openbox", e))
                         Reply = AntiAbuseCounterAdder(BotFunction.Tools.box.QQBox.main(commandString));
+                    else if (commandString=="/v fortune"&& CanBeUse.test("运势", e))
+                        Reply= AntiAbuseCounterAdder(BotFunction.Tools.Fortune.main(e,bot));
                     //Module Bottle
                     else if (commandString.StartsWith("/v bottle ") && CanBeUse.test("bottle", e))
                         Reply = AntiAbuseCounterAdder(BotFunction.Tools.Bottle.bottleController.main(commandString, e));
@@ -149,6 +151,7 @@ namespace VanillaForKonata
         {
             commandString = BotFunction.Games.Arcaea.Controller.getNickCommand(commandString);
             commandString = BotFunction.Tools.Bottle.bottleController.getNick(commandString);
+            commandString = BotFunction.Tools.Fortune.getNick(commandString);
             return commandString;
         }
         private static (bool,MessageBuilder) AntiAbuseCounterAdder(MessageBuilder m) {

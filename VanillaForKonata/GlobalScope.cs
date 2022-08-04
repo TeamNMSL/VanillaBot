@@ -76,6 +76,9 @@ namespace VanillaForKonata
             if (!Directory.Exists(Path.configs))
                 Directory.CreateDirectory(Path.configs);
             BotFunction.Tools.box.QQBox.init();
+            Path.templates= $"{Path.AppPath}\\templates";
+            if (!Directory.Exists(Path.templates))
+                Directory.CreateDirectory(Path.templates);
         }
         public static class Arc {
             public static string Api;
@@ -109,6 +112,7 @@ namespace VanillaForKonata
             public static string Manual;
             public static string Arcaea;
             public static string configs;
+            public static string templates;
         }
         public static class Cfgs
         {
@@ -122,7 +126,8 @@ namespace VanillaForKonata
                 { "arcaea","on" },
                 { "龙吟" ,"on"},
                 { "bottle","on" },
-                { "openbox" ,"loff"}
+                { "openbox" ,"loff"},
+                { "运势","on"}
             };
             public static int AbuseLimit=15;
             public static long AbuseClearTime=60000;

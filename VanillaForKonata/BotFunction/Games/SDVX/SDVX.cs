@@ -15,11 +15,11 @@ namespace VanillaForKonata.BotFunction.Games
     static public class SDVX
     {
         
-        static JArray SongDB;
-        static Dictionary<string, int> SongIdIndex=new();
-        static Dictionary<string, int> SongNameIndex=new();
-        static Dictionary<string, int> SongAsciiIndex = new();
-        static List<JObject> Songlist=new List<JObject>();
+        public static JArray SongDB;
+        public static Dictionary<string, int> SongIdIndex=new();
+        public static Dictionary<string, int> SongNameIndex=new();
+        public static Dictionary<string, int> SongAsciiIndex = new();
+        public static List<JObject> Songlist=new List<JObject>();
 
 
         public static MessageBuilder randSong(Konata.Core.Bot p1, GroupMessageEvent p2) { 
@@ -375,7 +375,7 @@ namespace VanillaForKonata.BotFunction.Games
             }
         }
 
-        private static Dictionary<string,string>getSongDetail(JObject songInfo)
+        public static Dictionary<string,string>getSongDetail(JObject songInfo)
         {
             string id = songInfo["@id"].ToString();
             while (id.Length!=4)

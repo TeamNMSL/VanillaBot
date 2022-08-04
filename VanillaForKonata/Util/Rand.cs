@@ -28,6 +28,18 @@ namespace VanillaForKonata.Util
             }
             catch (Exception e) { return -1; }
         }
+        public static int GetRandomNumber(int seed,int min, int max)
+        {
+
+            try
+            {
+                
+                Random r = new Random(seed);
+                int rtn = r.Next(min, max + 1);
+                return rtn;
+            }
+            catch (Exception e) { return -1; }
+        }
         /// <summary>
         /// 随机文件
         /// </summary>
