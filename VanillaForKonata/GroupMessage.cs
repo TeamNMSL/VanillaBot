@@ -64,8 +64,6 @@ namespace VanillaForKonata
                 {
                     
                     commandString = NickCommand(commandString);
-                    var textChain = e.Message.Chain.GetChain<TextChain>();
-
                     //Module Sys
                     if (commandString == "/ping")
                         Reply.Item2 = BotFunction.Sys.Ping();
@@ -82,8 +80,8 @@ namespace VanillaForKonata
                         Reply = AntiAbuseCounterAdder(BotFunction.Games.SDVX.Main(e, commandString, bot));
                     else if (commandString.StartsWith("/v sdvx song ") && CanBeUse.test("sdvx", e))
                         Reply = AntiAbuseCounterAdder(BotFunction.Games.SDVX.SendSound(e, commandString, bot));
-                    else if (commandString=="/v sdvx rand" && CanBeUse.test("sdvx", e))
-                        Reply = AntiAbuseCounterAdder(BotFunction.Games.SDVX.randSong(bot,e));
+                    else if (commandString == "/v sdvx rand" && CanBeUse.test("sdvx", e))
+                        Reply = AntiAbuseCounterAdder(BotFunction.Games.SDVX.randSong(bot, e));
                     //Module Arcaea
                     else if (commandString == "/v arc update" && CanBeUse.test("arcaea", e))
                         Reply.Item2 = BotFunction.Games.Arcaea.AutoUpdate.UpdateArcaea(bot, e);
@@ -102,12 +100,12 @@ namespace VanillaForKonata
                         Reply = AntiAbuseCounterAdder(BotFunction.Tools.DragonEncoding.Encode(commandString));
                     else if (commandString.StartsWith("/v dragon decode ") && CanBeUse.test("龙吟", e))
                         Reply = AntiAbuseCounterAdder(BotFunction.Tools.DragonEncoding.Decode(commandString));
-                    else if (commandString=="/v openbox rand" && CanBeUse.test("openbox", e))
-                        Reply = BotFunction.Tools.box.QQBox.randBox(e,bot);
+                    else if (commandString == "/v openbox rand" && CanBeUse.test("openbox", e))
+                        Reply = BotFunction.Tools.box.QQBox.randBox(e, bot);
                     else if (commandString.StartsWith("/v openbox ") && CanBeUse.test("openbox", e))
                         Reply = AntiAbuseCounterAdder(BotFunction.Tools.box.QQBox.main(commandString));
-                    else if (commandString=="/v fortune"&& CanBeUse.test("运势", e))
-                        Reply= AntiAbuseCounterAdder(BotFunction.Tools.Fortune.main(e,bot));
+                    else if (commandString == "/v fortune" && CanBeUse.test("运势", e))
+                        Reply = AntiAbuseCounterAdder(BotFunction.Tools.Fortune.main(e, bot));
                     //Module Bottle
                     else if (commandString.StartsWith("/v bottle ") && CanBeUse.test("bottle", e))
                         Reply = AntiAbuseCounterAdder(BotFunction.Tools.Bottle.bottleController.main(commandString, e));
@@ -116,6 +114,8 @@ namespace VanillaForKonata
                         Reply.Item2 = BotFunction.Sys.Help.Start(e);
                     else if (commandString == "龙图来" && CanBeUse.test("龙图", e))
                         Reply = AntiAbuseCounterAdder(BotFunction.Pictures.DragonPicture());
+                    else if ((commandString.StartsWith($"[KQ:at,qq={bot.Uin}]" )||commandString.StartsWith(GlobalScope.Cfgs.BotName)) && CanBeUse.test("自动回复", e))
+                        Reply.Item2 = BotFunction.AutoReply.autoReply(e.Message.Chain.ToString(),bot);
                     //Module Auto
                     else if (Util.Rand.CanIDo(0.05f) && CanBeUse.test("复读", e))
                         Reply.Item2 = BotFunction.Sys.Repeat(e.Message.Chain);

@@ -16,7 +16,7 @@ namespace VanillaForKonata
             Encodings.init();
             if (!File.Exists(@".\BotSettings"))
             {
-                File.WriteAllText(@".\BotSettings", "Path=\nAdminUin=");
+                File.WriteAllText(@".\BotSettings", "Path=\r\nAdminUin=\r\nBotName=");
                 Console.WriteLine("BotSettings Created,Edit it and run bot again\n[Help]\nPath:The path of bot data like C:\\User\\Konata\\Document\\Kagami\nAdminUin:The QQUin of Admin,like Admin=114514,1919,810");
                 Console.ReadKey();
                 Environment.Exit(0);
@@ -28,6 +28,11 @@ namespace VanillaForKonata
                 {
                     string t = item;
                     Path.AppPath = t.Replace("Path=", "").Replace("\r", "").Replace("\n", "");
+                }
+                if (item.StartsWith("BotName="))
+                {
+                    string t = item;
+                    Cfgs.BotName = t.Replace("BotName=", "").Replace("\r", "").Replace("\n", "");
                 }
                 else if (item.StartsWith("AdminUin="))
                 {
@@ -76,6 +81,7 @@ namespace VanillaForKonata
             if (!Directory.Exists(Path.configs))
                 Directory.CreateDirectory(Path.configs);
             BotFunction.Tools.box.QQBox.init();
+            BotFunction.AutoReply.init();
             Path.templates= $"{Path.AppPath}\\templates";
             if (!Directory.Exists(Path.templates))
                 Directory.CreateDirectory(Path.templates);
@@ -127,7 +133,8 @@ namespace VanillaForKonata
                 { "龙吟" ,"on"},
                 { "bottle","on" },
                 { "openbox" ,"loff"},
-                { "运势","on"}
+                { "运势","on"},
+                { "自动回复","on"}
             };
             public static int AbuseLimit=15;
             public static long AbuseClearTime=60000;
