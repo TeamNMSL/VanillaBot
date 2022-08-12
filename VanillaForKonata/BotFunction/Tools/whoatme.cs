@@ -29,13 +29,19 @@ namespace VanillaForKonata.BotFunction.Tools
         }
         public static void checkAdd(GroupMessageEvent e, Bot bot)
         {
+            List<uint> atlist = new();
             Konata.Core.Message.Model.AtChain atChain=null;
             foreach (var chain in e.Message.Chain)
             {
                 if (chain.Type==Konata.Core.Message.BaseChain.ChainType.At)
                 {
                     atChain = (Konata.Core.Message.Model.AtChain)chain;
-                    recordAt(e.GroupUin,e.MemberUin,atChain,e);
+                    if (!atlist.Contains(atChain.AtUin))
+                    {
+                        recordAt(e.GroupUin, e.MemberUin, atChain, e);
+                        atlist.Add(atChain.AtUin);
+                    }
+                    
                 }
             }
         }
