@@ -82,9 +82,11 @@ namespace VanillaForKonata
                 Directory.CreateDirectory(Path.configs);
             BotFunction.Tools.box.QQBox.init();
             BotFunction.AutoReply.init();
+            BotFunction.Tools.whoatme.Init();
             Path.templates= $"{Path.AppPath}\\templates";
             if (!Directory.Exists(Path.templates))
                 Directory.CreateDirectory(Path.templates);
+            
         }
         public static class Arc {
             public static string Api;
@@ -134,7 +136,8 @@ namespace VanillaForKonata
                 { "bottle","on" },
                 { "openbox" ,"loff"},
                 { "运势","on"},
-                { "自动回复","on"}
+                { "自动回复","on"},
+                { "谁at我","on"}
             };
             public static int AbuseLimit=15;
             public static long AbuseClearTime=60000;

@@ -18,10 +18,11 @@ namespace VanillaForKonata
     {
         internal static void Main(object? sender, GroupMessageEvent e, Bot bot)
         {
+
             try
             {
                 
-
+                //Something must be done at first=================================
                 if (e.MemberUin == bot.Uin)
                     return;
                 if (e.Message == null)
@@ -32,10 +33,22 @@ namespace VanillaForKonata
 
                 if (BotFunction.Sys.AntiAbuse.IsAbused(e.MemberUin))
                     return;
-
-                
-                string ImmersionStatus = BotInternal.ImmersionMode.ReadImmersion(e.MemberUin,"group");
                 string commandString = e.Message.Chain.ToString();
+                //Something to do before detect command===========================
+                
+                if (commandString.Contains("[KQ:at"))
+                {
+                    Task.Run(() => {
+                        BotFunction.Tools.whoatme.checkAdd(e, bot);
+                    });
+                    
+                }
+
+
+
+                //Commands detection==============================================
+                string ImmersionStatus = BotInternal.ImmersionMode.ReadImmersion(e.MemberUin,"group");
+               
                 if (commandString=="/v clear immersion")
                 {
                     ImmersionStatus = "null";
@@ -106,6 +119,8 @@ namespace VanillaForKonata
                         Reply = AntiAbuseCounterAdder(BotFunction.Tools.box.QQBox.main(commandString));
                     else if (commandString == "/v fortune" && CanBeUse.test("运势", e))
                         Reply = AntiAbuseCounterAdder(BotFunction.Tools.Fortune.main(e, bot));
+                    else if (commandString == "/v whoatme" && CanBeUse.test("谁at我", e))
+                        Reply = BotFunction.Tools.whoatme.send(e.GroupUin,e.MemberUin,bot);
                     //Module Bottle
                     else if (commandString.StartsWith("/v bottle ") && CanBeUse.test("bottle", e))
                         Reply = AntiAbuseCounterAdder(BotFunction.Tools.Bottle.bottleController.main(commandString, e));
@@ -152,6 +167,7 @@ namespace VanillaForKonata
             commandString = BotFunction.Games.Arcaea.Controller.getNickCommand(commandString);
             commandString = BotFunction.Tools.Bottle.bottleController.getNick(commandString);
             commandString = BotFunction.Tools.Fortune.getNick(commandString);
+            commandString = BotFunction.Tools.whoatme.getNickcommand(commandString);
             return commandString;
         }
         private static (bool,MessageBuilder) AntiAbuseCounterAdder(MessageBuilder m) {
