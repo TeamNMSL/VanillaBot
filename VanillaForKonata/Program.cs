@@ -55,7 +55,7 @@ namespace VanillaForKonata
                     _bot.OnGroupMessage += _bot_OnGroupMessage;
                     _bot.OnGroupInvite += _bot_OnGroupInvite;
                     _bot.OnFriendRequest += _bot_OnFriendRequest;
-                  
+                    _bot.OnFriendMessage += _bot_OnFriendMessage;
 
                 }
 
@@ -82,6 +82,13 @@ namespace VanillaForKonata
 
                 Console .WriteLine(e.ToString());
             }
+        }
+
+        private static void _bot_OnFriendMessage(Bot sender, FriendMessageEvent args)
+        {
+            Task.Run(() => {
+                FriendMessage.Main(args, _bot);
+            });
         }
 
         private static void _bot_OnFriendRequest(Bot sender, FriendRequestEvent args)

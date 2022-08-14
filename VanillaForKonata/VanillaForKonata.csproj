@@ -33,4 +33,8 @@
     <PackageReference Include="TencentCloudSDK" Version="3.0.573" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\common\Xunkong.Hoyolab\Xunkong.Hoyolab.csproj" />
+  </ItemGroup>
+
 </Project>

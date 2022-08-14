@@ -22,8 +22,17 @@ namespace VanillaForKonata.Util
         string css = "<style></style>";
         public PicHTMLBuilder(string html)
         {
-            HTML="<html>"+Text.TextGainCenter("<html>", "</html>", html)+"</html>";
-            css = "<style>" + Text.TextGainCenter("<style>", "</style>", html) + "</style>";
+            if (!html.Contains("<html>")&& !html.Contains("<style>"))
+            {
+                HTML = html;
+                css = "";
+            }
+            else
+            {
+                HTML = "<html>" + Text.TextGainCenter("<html>", "</html>", html) + "</html>";
+                css = "<style>" + Text.TextGainCenter("<style>", "</style>", html) + "</style>";
+            }
+           
 
         }
         public void setValue(string key,string value) {

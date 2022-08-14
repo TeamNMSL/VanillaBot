@@ -83,6 +83,7 @@ namespace VanillaForKonata
             BotFunction.Tools.box.QQBox.init();
             BotFunction.AutoReply.init();
             BotFunction.Tools.whoatme.Init();
+            BotFunction.Games.Genshin.Genshin.init();
             Path.templates= $"{Path.AppPath}\\templates";
             if (!Directory.Exists(Path.templates))
                 Directory.CreateDirectory(Path.templates);
@@ -137,7 +138,8 @@ namespace VanillaForKonata
                 { "openbox" ,"loff"},
                 { "运势","on"},
                 { "自动回复","on"},
-                { "谁at我","on"}
+                { "谁at我","on"},
+                { "原神","on"}
             };
             public static int AbuseLimit=15;
             public static long AbuseClearTime=60000;

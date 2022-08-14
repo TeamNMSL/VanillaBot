@@ -2,7 +2,7 @@
 
 namespace VanillaForKonata.Util {
     public static class HTML2Pic {
-        public static async Task<bool> generate(string webPagePath,string outputFileName,int wid=1920,int hei=1080) {
+        public static async Task<bool> generate(string webPagePath,string outputFileName,int wid=1920,int hei=1080,int wait=0) {
 
             using (var browser = await Puppeteer.LaunchAsync(new LaunchOptions
             {
@@ -17,6 +17,7 @@ namespace VanillaForKonata.Util {
                         Height = hei
                     });
                     await page.GoToAsync(webPagePath);
+                    Thread.Sleep(wait);
                     await page.ScreenshotAsync(outputFileName);
                     return true;
                 }

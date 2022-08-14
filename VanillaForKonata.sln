@@ -5,6 +5,10 @@ VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VanillaForKonata", "VanillaForKonata\VanillaForKonata.csproj", "{F49B0222-3B02-4E76-BC9A-280BCD776E97}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xunkong.Core", "common\Xunkong.Core\Xunkong.Core.csproj", "{919ADFC7-FAB7-4729-A87C-B6EE657C661C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xunkong.Hoyolab", "common\Xunkong.Hoyolab\Xunkong.Hoyolab.csproj", "{AEE20E46-9835-4CCA-AD19-4911CBB5DC8F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{F49B0222-3B02-4E76-BC9A-280BCD776E97}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F49B0222-3B02-4E76-BC9A-280BCD776E97}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F49B0222-3B02-4E76-BC9A-280BCD776E97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{919ADFC7-FAB7-4729-A87C-B6EE657C661C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{919ADFC7-FAB7-4729-A87C-B6EE657C661C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{919ADFC7-FAB7-4729-A87C-B6EE657C661C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{919ADFC7-FAB7-4729-A87C-B6EE657C661C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEE20E46-9835-4CCA-AD19-4911CBB5DC8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEE20E46-9835-4CCA-AD19-4911CBB5DC8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEE20E46-9835-4CCA-AD19-4911CBB5DC8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEE20E46-9835-4CCA-AD19-4911CBB5DC8F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
