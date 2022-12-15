@@ -106,7 +106,7 @@ namespace VanillaForKonata
                         Reply = AntiAbuseCounterAdder(addAt(bot, e, BotFunction.Games.Arcaea.Controller.chartPreview(commandString)));
                     else if (commandString == "/v arc best" && CanBeUse.test("arcaea", e))
                         Reply = AntiAbuseCounterAdder(addAt(bot, e, BotFunction.Games.Arcaea.Controller.best(commandString, e)));
-                    //Module Genshin
+                    //Module Genshin---Fixing
                     else if (commandString.StartsWith("/v genshin bind") && CanBeUse.test("原神", e))
                         Reply = (false,BotFunction.Games.Genshin.Genshin.bindGroup());
                     else if (commandString.StartsWith("/v genshin query ") && CanBeUse.test("原神", e))
