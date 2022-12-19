@@ -16,8 +16,6 @@ namespace VanillaForKonata
                 MessageBuilder Reply=null;
                 if (e.FriendUin == e.SelfUin)
                     return;
-                if (commandString.StartsWith("//v genshin bind "))
-                    Reply = BotFunction.Games.Genshin.Genshin.bind(e,commandString);
 
                 if (Reply != null)
                     bot.SendFriendMessage(e.FriendUin,Reply);

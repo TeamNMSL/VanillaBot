@@ -108,9 +108,9 @@ namespace VanillaForKonata
                         Reply = AntiAbuseCounterAdder(addAt(bot, e, BotFunction.Games.Arcaea.Controller.best(commandString, e)));
                     //Module Genshin---Fixing
                     else if (commandString.StartsWith("/v genshin bind") && CanBeUse.test("原神", e))
-                        Reply = (false,BotFunction.Games.Genshin.Genshin.bindGroup());
-                    else if (commandString.StartsWith("/v genshin query ") && CanBeUse.test("原神", e))
-                        Reply = AntiAbuseCounterAdder(BotFunction.Games.Genshin.Genshin.queryChar(e,bot,commandString));
+                        Reply= AntiAbuseCounterAdder(BotFunction.Games.Genshin.Genshin.bind(commandString,e));
+                    else if (commandString.StartsWith("/v genshin query") && CanBeUse.test("原神", e))
+                        Reply = AntiAbuseCounterAdder(BotFunction.Games.Genshin.Genshin.query(commandString, e));
                     //Module Tool
                     else if (commandString.StartsWith("/v choose ") && CanBeUse.test("选择", e))
                         Reply = AntiAbuseCounterAdder(BotFunction.Tools.ChooseForMe.Choose(commandString));
@@ -173,7 +173,7 @@ namespace VanillaForKonata
             commandString = BotFunction.Tools.Bottle.bottleController.getNick(commandString);
             commandString = BotFunction.Tools.Fortune.getNick(commandString);
             commandString = BotFunction.Tools.whoatme.getNickcommand(commandString);
-            commandString = BotFunction.Games.Genshin.Genshin.NickName(commandString);
+            commandString = BotFunction.Games.Genshin.Genshin.nickName(commandString);
             return commandString;
         }
         private static (bool,MessageBuilder) AntiAbuseCounterAdder(MessageBuilder m) {
