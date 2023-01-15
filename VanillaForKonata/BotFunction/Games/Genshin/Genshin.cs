@@ -89,7 +89,7 @@ namespace VanillaForKonata.BotFunction.Games.Genshin
                         {
                             return false;
                         }
-                        Thread.Sleep(1000);
+                        Thread.Sleep(10000);
                         await xp[0].ScreenshotAsync($"{GlobalScope.Path.temp}\\Genshin{savename}.png", new ScreenshotOptions() { FullPage = false, Type = ScreenshotType.Png });
                         await browser.CloseAsync();
                         return true;

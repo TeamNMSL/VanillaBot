@@ -48,7 +48,7 @@ namespace VanillaForKonata.BotFunction.Games.Arcaea
                 UA = GlobalScope.Arc.UserAgent;
                 client = new();
                 client.BaseAddress = new Uri("https://" + GlobalScope.Arc.Api + "/");
-                client.DefaultRequestHeaders.Add("User-Agent", UA);
+                client.DefaultRequestHeaders.Add("Authorization", UA);
             }
             public Stream GetStream() {
                 return client.GetStreamAsync(client.BaseAddress+APIRoutine).Result;
