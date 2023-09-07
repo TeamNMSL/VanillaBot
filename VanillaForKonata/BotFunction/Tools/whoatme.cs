@@ -81,21 +81,34 @@ namespace VanillaForKonata.BotFunction.Tools
             Konata.Core.Message.Model.MultiMsgChain messages = new();
             try
             {
+                Console.WriteLine(list.Count);
                 var a = list[0];
+                List<System.Data.DataRow> msgs = new();
                 foreach (System.Data.DataRow single in list)
                 {
+                    msgs.Add(single);
+                }
+                msgs.Reverse();
+                int ct = 0;
+                foreach (System.Data.DataRow single in msgs)
+                {
+                    if (ct>=90)
+                    {
+                        break;
+                    }
                     uint aterUin = uint.Parse(single[memberUin].ToString());
                     (uint, string) aa = (aterUin, bot.GetGroupMemberInfo(groupuin, aterUin).Result.NickName);
                     var c = MessageBuilder.Eval(single[messageCode].ToString()).Build();
                     messages.Add((aa, c));//smjb
+                    ct = ct + 1;
                 }
                 bot.SendGroupMessage(groupuin, messages);
                 return (false,null);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
-                return (false,new MessageBuilder().Text("没人at你"));
+                Console.WriteLine(e.ToString());
+                return (false,new MessageBuilder().Text(e.Message));
             }
             
         }

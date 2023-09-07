@@ -40,7 +40,7 @@ namespace VanillaForKonata.BotFunction.Tools
                 h.setValue("Songname", Games.SDVX.Songlist[index]["info"]["title_name"].ToString());
             //SDVX end
 
-            h.setValue("Fortune", (new Random(seed).Next(1, 101)*10).ToString());
+            h.setValue("Fortune", (new Random(seed).Next(1, 101)).ToString());
             getUserIcon(e.MemberUin);
             h.setValue("Icon",Util.PicHTMLBuilder.pathConverter($"{GlobalScope.Path.temp}\\{e.MemberUin}.jpg"));
 

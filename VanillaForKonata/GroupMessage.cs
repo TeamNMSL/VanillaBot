@@ -96,7 +96,7 @@ namespace VanillaForKonata
                     else if (commandString == "/v sdvx rand" && CanBeUse.test("sdvx", e))
                         Reply = AntiAbuseCounterAdder(BotFunction.Games.SDVX.randSong(bot, e));
                     //Module Arcaea
-                    else if (commandString == "/v arc update" && CanBeUse.test("arcaea", e))
+                    /*else if (commandString == "/v arc update" && CanBeUse.test("arcaea", e))
                         Reply.Item2 = BotFunction.Games.Arcaea.AutoUpdate.UpdateArcaea(bot, e);
                     else if (commandString.StartsWith("/v arc query") && CanBeUse.test("arcaea", e))
                         Reply = AntiAbuseCounterAdder(addAt(bot, e, BotFunction.Games.Arcaea.Controller.generalQueryEntry(commandString, e)));
@@ -105,7 +105,7 @@ namespace VanillaForKonata
                     else if (commandString.StartsWith("/v arc chart ") && CanBeUse.test("arcaea", e))
                         Reply = AntiAbuseCounterAdder(addAt(bot, e, BotFunction.Games.Arcaea.Controller.chartPreview(commandString)));
                     else if (commandString == "/v arc best" && CanBeUse.test("arcaea", e))
-                        Reply = AntiAbuseCounterAdder(addAt(bot, e, BotFunction.Games.Arcaea.Controller.best(commandString, e)));
+                        Reply = AntiAbuseCounterAdder(addAt(bot, e, BotFunction.Games.Arcaea.Controller.best(commandString, e)));*/
                     //Module Genshin---Fixing
                     else if (commandString.StartsWith("/v genshin bind") && CanBeUse.test("原神", e))
                         Reply= AntiAbuseCounterAdder(BotFunction.Games.Genshin.Genshin.bind(commandString,e));
@@ -134,8 +134,6 @@ namespace VanillaForKonata
                         Reply.Item2 = BotFunction.Sys.Help.Start(e);
                     else if (commandString == "龙图来" && CanBeUse.test("龙图", e))
                         Reply = AntiAbuseCounterAdder(BotFunction.Pictures.DragonPicture());
-                    else if ((commandString.StartsWith($"[KQ:at,qq={bot.Uin}]") || commandString.StartsWith(GlobalScope.Cfgs.BotName)) && CanBeUse.test("自动回复", e))
-                        Reply.Item2 = BotFunction.AutoReply.autoReply(e.Message.Chain.ToString(), bot);
                     //Module Auto
                     else if (Util.Rand.CanIDo(0.05f) && CanBeUse.test("复读", e))
                         Reply.Item2 = BotFunction.Sys.Repeat(e.Message.Chain);

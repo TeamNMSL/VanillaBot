@@ -132,14 +132,14 @@ namespace VanillaForKonata
                 {"龙图" ,"on"},
                 { "选择","on" },
                 { "sdvx" ,"on"},
-                { "arcaea","on" },
+                
                 { "龙吟" ,"on"},
                 { "bottle","on" },
                 { "openbox" ,"loff"},
                 { "运势","on"},
-                { "自动回复","on"},
+          
                 { "谁at我","on"},
-                { "原神","on"}
+              
             };
             public static int AbuseLimit=15;
             public static long AbuseClearTime=60000;
