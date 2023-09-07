@@ -82,13 +82,17 @@ namespace VanillaForKonata.BotFunction.Tools
             try
             {
                 Console.WriteLine(list.Count);
-                var a = list[0];
+                //var a = list[0];
                 List<System.Data.DataRow> msgs = new();
                 foreach (System.Data.DataRow single in list)
                 {
                     msgs.Add(single);
                 }
                 msgs.Reverse();
+                if (msgs.Count<=0)
+                {
+                    return (false, new MessageBuilder().Text("没人at你"));
+                }
                 int ct = 0;
                 foreach (System.Data.DataRow single in msgs)
                 {
@@ -108,7 +112,7 @@ namespace VanillaForKonata.BotFunction.Tools
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
-                return (false,new MessageBuilder().Text(e.Message));
+                return (false,new MessageBuilder().Text(e.ToString()));
             }
             
         }
